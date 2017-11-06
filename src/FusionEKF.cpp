@@ -36,7 +36,15 @@ FusionEKF::FusionEKF() {
     * Finish initializing the FusionEKF.
     * Set the process and measurement noises
   */
+  // Initialize variables and matrices (x, F, H_laser, H_jacobian, P, etc)
 
+  // Initialize the Kalman filter position vector with the furst sensor measurements
+
+  // Modify the F and Q matrices prior to prediction step based on elapsed time between measurements
+
+  /* Call the update step for either the lidar or radar sensor measurement.  Because the
+	update step for lidar and radar are slightly different, there are different functions
+	for updating lidar and radar. */
 
 }
 
