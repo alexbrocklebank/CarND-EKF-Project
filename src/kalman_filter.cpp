@@ -32,6 +32,26 @@ void KalmanFilter::Update(const VectorXd &z) {
   TODO:
     * update the state by using Kalman Filter equations
   */
+  // Temp variables for state parameters
+	float px = ekf_.x_(0);
+	float py = ekf_.x_(1);
+	float vx = ekf_.x_(2);
+	float vy = ekf_.x_(3);
+
+	// Store pre-computed repeated equations
+	float c1 = px*px + py*py;
+	float c2 = sqrt(c1);
+	float c3 = (c1*c2);
+
+	// Ensure no divide by zero exists
+	if (fabs(c1) < 0.0001) {
+		cout << "FusionEKF::ProcessMeasurement - Initialize Jacobian Error: Divide by Zero\n";
+		return;
+	}
+
+	ekf_.H_jacobian_ << (px / c2), (py / c2), 0, 0,
+		-(py / c1), (px / c1), 0, 0,
+		py*(vx*py - vy*px) / c3, px*(px*vy - py*vx) / c3, px / c2, py / c2;
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
