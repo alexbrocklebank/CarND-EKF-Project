@@ -99,21 +99,27 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     */
     // first measurement
 	std::cout << "Entering FusionEKF::ProcessMeasurement()\n";
-    cout << "EKF: " << endl;
-    ekf_.x_ = VectorXd(4);
-    ekf_.x_ << 0, 0, 0, 0;
 
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       /**
       Convert radar from polar to cartesian coordinates and initialize state.
       */
-		float rho_ = measurement_pack.raw_measurements_[0];
-		float phi_ = measurement_pack.raw_measurements_[1];
-		float rhodot_ = measurement_pack.raw_measurements_[2];
+		float rho = measurement_pack.raw_measurements_[0];
+		float phi = measurement_pack.raw_measurements_[1];
+		//float rhodot = measurement_pack.raw_measurements_[2];
+
+		// Normalize Phi to be between -pi, pi
+		phi = atan2(sin(phi), cos(phi));
 
 		// Convert polar to cartesian here
+		float px = rho * cos(phi);
+		float py = rho * sin(phi);
+		float vx = ekf_.x_(2);
+		float vy = ekf_.x_(3);
+		VectorXd measurements(4);
+		measurements << px, py, vx, vy;
 
-		ekf_.x_ << 0, 0, 0, 0;		// Change me to real values after convert
+		ekf_.UpdateEKF(measurements);
 
 		cout << "EKF Radar X: " << ekf_.x_ << endl;
     }
@@ -121,14 +127,17 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       /**
       Initialize state.
       */
-		ekf_.x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 0, 0;
+		VectorXd measurements(4);
+		measurements << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 0, 0;
+
+		ekf_.Update(measurements);
 		cout << "EKF Laser X: " << ekf_.x_ << endl;
     }
 
     // done initializing, no need to predict or update
     is_initialized_ = true;
 
-	std::cout << "Exiting FusionEKF::ProcessMeasurement()\n";
+	std::cout << "Exiting Initialization step FusionEKF::ProcessMeasurement()\n";
     return;
   }
 
