@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\products\cmake.msbuild.windows.x64.v141\CMakeFiles\20b247b6bff1b79a2c618232ec0e58be\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{FECFF93E-2C44-37F8-A9D9-77E71A5F7F79}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

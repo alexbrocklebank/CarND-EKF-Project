@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\src\tools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\src\FusionEKF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\src\kalman_filter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\src\tools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\src\FusionEKF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\src\kalman_filter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1A73A67C-B968-3AE0-8FFA-86ED5FF6FE37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{141DDC9C-9812-3DAD-8F4D-E92249D6E948}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
