@@ -1,7 +1,5 @@
-﻿  FusionEKF.cpp
-d:\google drive\schoolwork udacity\ud013\carnd-ekf-project\src\fusionekf.cpp(109): warning C4244: 'initializing': conversion from 'const double' to 'float', possible loss of data
-d:\google drive\schoolwork udacity\ud013\carnd-ekf-project\src\fusionekf.cpp(110): warning C4244: 'initializing': conversion from 'const double' to 'float', possible loss of data
-d:\google drive\schoolwork udacity\ud013\carnd-ekf-project\src\fusionekf.cpp(111): warning C4244: 'initializing': conversion from 'const double' to 'float', possible loss of data
-d:\google drive\schoolwork udacity\ud013\carnd-ekf-project\src\fusionekf.cpp(146): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+﻿  kalman_filter.cpp
+d:\google drive\schoolwork udacity\ud013\carnd-ekf-project\src\kalman_filter.cpp(55): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+d:\google drive\schoolwork udacity\ud013\carnd-ekf-project\src\kalman_filter.cpp(89): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
      Creating library D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\ide_profiles\VisualStudio\..\products\msbuild.windows.x64.v141.Debug\CarND-Extended-Kalman-Filter-Project.lib and object D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\ide_profiles\VisualStudio\..\products\msbuild.windows.x64.v141.Debug\CarND-Extended-Kalman-Filter-Project.exp
   CarND-Extended-Kalman-Filter-Project.vcxproj -> D:\Google Drive\Schoolwork Udacity\UD013\CarND-EKF-Project\ide_profiles\VisualStudio\..\products\msbuild.windows.x64.v141.Debug\CarND-Extended-Kalman-Filter-Project.exe
