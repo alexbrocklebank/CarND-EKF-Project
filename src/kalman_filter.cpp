@@ -29,6 +29,7 @@ void KalmanFilter::Predict() {
   */
 	// From Lesson 5.13
 	//std::cout << "Entering KalmanFilter::Predict()\n";
+	std::cout << "Q = " << Q_ << "\n";
 	x_ = F_ * x_;
 	MatrixXd Ft = F_.transpose();
 	P_ = F_ * P_ * Ft + Q_;
@@ -79,15 +80,22 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	//std::cout << "Entering KalmanFilter::UpdateEKF()\n";
 
 	// Convert current state back into polar coordinates
-	double rho = sqrt(x_[0] * x_[0] + x_[1] * x_[1]);
+	double rho = sqrt((x_[0] * x_[0]) + (x_[1] * x_[1]));
 	double phi = 0.0;
 	double rhodot = 0.0;
 	
-	if (fabs(x_[0]) > 0.001) {
+	if (fabs(x_[0]) > 0.0001) {
 		phi = atan2(x_[1], x_[0]);
 	}
-	if (fabs(rho) > 0.001) {
-		rhodot = (x_[0] * x_[2] + x_[1] * x_[3]) / rho;
+	else {
+		phi = atan2(x_[1], 0.0001);
+	}
+	if (fabs(rho) > 0.0001) {
+		rhodot = (((x_[0] * x_[2]) + (x_[1] * x_[3])) / rho);
+	}
+	else {
+		rho = 0.0001;
+		rhodot = (((x_[0] * x_[2]) + (x_[1] * x_[3])) / rho);
 	}
 	phi = atan2(sin(phi), cos(phi));
 	VectorXd hx(3);

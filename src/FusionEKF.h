@@ -46,10 +46,6 @@ private:
   Eigen::MatrixXd Hj_matrix;
   Eigen::MatrixXd P_matrix;
   Eigen::MatrixXd F_matrix;
-  Eigen::MatrixXd Q_matrix;
-
-  float noise_ax;
-  float noise_ay;
 };
 
 #endif /* FusionEKF_H_ */

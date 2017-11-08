@@ -1,7 +1,4 @@
-﻿  kalman_filter.cpp
-d:\google drive\schoolwork udacity\ud013\carnd-ekf-project\src\kalman_filter.cpp(65): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
-d:\google drive\schoolwork udacity\ud013\carnd-ekf-project\src\kalman_filter.cpp(125): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
-  FusionEKF.cpp
+﻿  FusionEKF.cpp
   Generating Code...
   Compiling...
   main.cpp
