@@ -28,12 +28,10 @@ void KalmanFilter::Predict() {
     * predict the state
   */
 	// From Lesson 5.13
-	//std::cout << "Entering KalmanFilter::Predict()\n";
-	std::cout << "Q = " << Q_ << "\n";
+	//std::cout << "Q = " << Q_ << "\n";
 	x_ = F_ * x_;
 	MatrixXd Ft = F_.transpose();
 	P_ = F_ * P_ * Ft + Q_;
-	//std::cout << "Exiting KalmanFilter::Predict()\n";
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
@@ -42,33 +40,26 @@ void KalmanFilter::Update(const VectorXd &z) {
     * update the state by using Kalman Filter equations
   */
 	// From Lesson 5.13
-	//std::cout << "Entering KalmanFilter::Update()\n";
 	VectorXd z_pred = H_ * x_;
-	//std::cout << "KalmanFilter::Update() - z_pred Assignment Successful!\n";
-	//std::cout << "z size = " << z.size() << " , z_pred size = " << z_pred.size() << std::endl;
-	// OUTPUT: z size = 2 , z_pred size = 2
+
 	VectorXd y = z - z_pred;
-	//std::cout << "KalmanFilter::Update() - y Assignment Successful!\n";
+
 	MatrixXd Ht = H_.transpose();
-	//std::cout << "KalmanFilter::Update() - Ht Assignment Successful!\n";
+
 	MatrixXd S = H_ * P_ * Ht + R_;
-	//std::cout << "KalmanFilter::Update() - S Assignment Successful!\n";
+
 	MatrixXd Si = S.inverse();
-	//std::cout << "KalmanFilter::Update() - Si Assignment Successful!\n";
+
 	MatrixXd PHt = P_ * Ht;
-	//std::cout << "KalmanFilter::Update() - PHt Assignment Successful!\n";
+
 	MatrixXd K = PHt * Si;
-	//std::cout << "KalmanFilter::Update() - K Assignment Successful!\n";
 
 	//new estimate
 	x_ = x_ + (K * y);
-	//std::cout << "KalmanFilter::Update() - X Assignment Successful!\n";
 	long x_size = x_.size();
 	MatrixXd I = MatrixXd::Identity(x_size, x_size);
-	//std::cout << "KalmanFilter::Update() - I Assignment Successful!\n";
+
 	P_ = (I - K * H_) * P_;
-	//std::cout << "KalmanFilter::Update() - P Assignment Successful!\n";
-	//std::cout << "Exiting KalmanFilter::Update()\n";
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
@@ -77,7 +68,6 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     * update the state by using Extended Kalman Filter equations
   */
   // Modifications from Lesson 5.20
-	//std::cout << "Entering KalmanFilter::UpdateEKF()\n";
 
 	// Convert current state back into polar coordinates
 	double rho = sqrt((x_[0] * x_[0]) + (x_[1] * x_[1]));
@@ -101,39 +91,28 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	VectorXd hx(3);
 	hx << rho, phi, rhodot;
 
-	//std::cout << "KalmanFilter::UpdateEKF() - Hj Assignment Successful!\n";
+
 	//VectorXd z_pred = Hj * x_;
-	//std::cout << "KalmanFilter::UpdateEKF() - z_pred Assignment Successful!\n";
-	//std::cout << "z size = " << z.size() << " , hx size = " << hx.size() << std::endl;
-	// OUTPUT: z size = 4 , hx size = 3
 	VectorXd y = z - hx;
 	// Renormalize y pi/-pi
 	y[1] = atan2(sin(y[1]), cos(y[1]));
-	//std::cout << "KalmanFilter::UpdateEKF() - y Assignment Successful!\n";
+
 	MatrixXd Ht = H_.transpose();
-	//std::cout << "KalmanFilter::UpdateEKF() - Ht Assignment Successful!\n";
-	//std::cout << "Hj size = " << Hj.size() << " , P size = " << P_.size();
-	//std::cout << " , Ht size = " << Ht.size() << " , R size = " << R_.size() << ::endl;
-	// OUTPUT: H size = 8 , P size = 16 , Ht size = 8 , R size = 9
-	MatrixXd S = H_ * P_ * Ht + R_;			// Error occurs here
-	//std::cout << "KalmanFilter::UpdateEKF() - S Assignment Successful!\n";
+
+	MatrixXd S = H_ * P_ * Ht + R_;
+
 	MatrixXd Si = S.inverse();
-	//std::cout << "KalmanFilter::UpdateEKF() - Si Assignment Successful!\n";
+
 	MatrixXd PHt = P_ * Ht;
-	//std::cout << "KalmanFilter::UpdateEKF() - PHt Assignment Successful!\n";
+
 	MatrixXd K = PHt * Si;
-	//std::cout << "KalmanFilter::UpdateEKF() - K Assignment Successful!\n";
+
 
 	//new estimate
-	//std::cout << "Hx size = " << hx.size() << " , K size = " << K.size();
-	//std::cout << " , Y size = " << y.size() << ::endl;
-	// OUTPUT: Hx size = 3, K size = 8, Y size = 3
 	x_ = x_ + (K * y);
-	//std::cout << "KalmanFilter::UpdateEKF() - X Assignment Successful!\n";
+
 	long x_size = x_.size();
 	MatrixXd I = MatrixXd::Identity(x_size, x_size);
-	//std::cout << "KalmanFilter::UpdateEKF() - I Assignment Successful!\n";
+
 	P_ = (I - K * H_) * P_;
-	//std::cout << "KalmanFilter::UpdateEKF() - P Assignment Successful!\n";
-	//std::cout << "Exiting KalmanFilter::UpdateEKF()\n";
 }

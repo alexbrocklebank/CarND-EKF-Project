@@ -77,7 +77,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       * Remember: you'll need to convert radar from polar to cartesian coordinates.
     */
     // first measurement
-	//std::cout << "Entering FusionEKF::ProcessMeasurement()\n";
 	  //previous_timestamp_ = 0;
 	  ekf_.x_ = VectorXd(4);
 	  ekf_.x_ << 0, 0, 0, 0;
@@ -133,7 +132,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     // done initializing, no need to predict or update
     is_initialized_ = true;
 
-	//std::cout << "Exiting Initialization step FusionEKF::ProcessMeasurement()\n";
     return;
   }
 
@@ -148,7 +146,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
      * Update the process noise covariance matrix.
      * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
-  //std::cout << "Prediction Step in FusionEKF::ProcessMeasurement()\n";
    //compute the time elapsed between the current and previous measurements
    //dt - expressed in seconds
 	double dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
@@ -195,8 +192,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
      * Use the sensor type to perform the update step.
      * Update the state and covariance matrices.
    */
-
-  //std::cout << "Update Step in FusionEKF::ProcessMeasurement()\n";
 
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
     // Radar updates
