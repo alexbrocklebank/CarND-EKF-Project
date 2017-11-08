@@ -92,9 +92,6 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	VectorXd hx(3);
 	hx << rho, phi, rhodot;
 
-	Tools tools;
-	MatrixXd Hj = tools.CalculateJacobian(x_);
-
 	//std::cout << "KalmanFilter::UpdateEKF() - Hj Assignment Successful!\n";
 	//VectorXd z_pred = Hj * x_;
 	//std::cout << "KalmanFilter::UpdateEKF() - z_pred Assignment Successful!\n";
@@ -102,16 +99,14 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	// OUTPUT: z size = 4 , hx size = 3
 	VectorXd y = z - hx;
 	// Renormalize y pi/-pi
-	if (fabs(y(1)) > 0.0001) {
-		phi = atan2(y(1), y(1));
-	}
+	y(1) = atan2(sin(y(1)), cos(y(1)));
 	//std::cout << "KalmanFilter::UpdateEKF() - y Assignment Successful!\n";
-	MatrixXd Ht = Hj.transpose();
+	MatrixXd Ht = H_.transpose();
 	//std::cout << "KalmanFilter::UpdateEKF() - Ht Assignment Successful!\n";
 	//std::cout << "Hj size = " << Hj.size() << " , P size = " << P_.size();
 	//std::cout << " , Ht size = " << Ht.size() << " , R size = " << R_.size() << ::endl;
 	// OUTPUT: H size = 8 , P size = 16 , Ht size = 8 , R size = 9
-	MatrixXd S = Hj * P_ * Ht + R_;			// Error occurs here
+	MatrixXd S = H_ * P_ * Ht + R_;			// Error occurs here
 	//std::cout << "KalmanFilter::UpdateEKF() - S Assignment Successful!\n";
 	MatrixXd Si = S.inverse();
 	//std::cout << "KalmanFilter::UpdateEKF() - Si Assignment Successful!\n";
@@ -129,7 +124,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	long x_size = x_.size();
 	MatrixXd I = MatrixXd::Identity(x_size, x_size);
 	//std::cout << "KalmanFilter::UpdateEKF() - I Assignment Successful!\n";
-	P_ = (I - K * Hj) * P_;
+	P_ = (I - K * H_) * P_;
 	//std::cout << "KalmanFilter::UpdateEKF() - P Assignment Successful!\n";
 	//std::cout << "Exiting KalmanFilter::UpdateEKF()\n";
 }
