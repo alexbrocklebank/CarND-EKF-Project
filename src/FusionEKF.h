@@ -46,8 +46,6 @@ private:
   Eigen::MatrixXd Hj_;
   Eigen::MatrixXd P_;
   Eigen::MatrixXd F_;
-  Eigen::MatrixXd H_;
-  Eigen::MatrixXd R_;
   Eigen::MatrixXd Q_;
 
   float noise_ax;

@@ -79,16 +79,17 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	//std::cout << "Entering KalmanFilter::UpdateEKF()\n";
 
 	// Convert current state back into polar coordinates
-	float rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1));
-	float phi = 0.0;
-	float rhodot = 0.0;
+	double rho = sqrt(x_[0] * x_[0] + x_[1] * x_[1]);
+	double phi = 0.0;
+	double rhodot = 0.0;
 	
-	if (fabs(x_(0)) > 0.0001) {
-		phi = atan2(x_(1), x_(0));
+	if (fabs(x_[0]) > 0.001) {
+		phi = atan2(x_[1], x_[0]);
 	}
-	if (fabs(rho) > 0.0001) {
-		rhodot = (x_(0) * x_(2) + x_(1) * x_(3)) / rho;
+	if (fabs(rho) > 0.001) {
+		rhodot = (x_[0] * x_[2] + x_[1] * x_[3]) / rho;
 	}
+	phi = atan2(sin(phi), cos(phi));
 	VectorXd hx(3);
 	hx << rho, phi, rhodot;
 
@@ -99,7 +100,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	// OUTPUT: z size = 4 , hx size = 3
 	VectorXd y = z - hx;
 	// Renormalize y pi/-pi
-	y(1) = atan2(sin(y(1)), cos(y(1)));
+	y[1] = atan2(sin(y[1]), cos(y[1]));
 	//std::cout << "KalmanFilter::UpdateEKF() - y Assignment Successful!\n";
 	MatrixXd Ht = H_.transpose();
 	//std::cout << "KalmanFilter::UpdateEKF() - Ht Assignment Successful!\n";
